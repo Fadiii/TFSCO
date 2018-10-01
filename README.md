@@ -27,4 +27,4 @@ Features:
   <li>Save the last size and position of the chat overlay used</li>
 </ul>
 
-*This extension is a work in progress
+This extension is a work in progress

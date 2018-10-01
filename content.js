@@ -6,9 +6,12 @@ var settings = {
     bgTheme: '218,216,222',
     currentAlpha: '1',
     currentOpacity: '1',
+    currentFontSize: '12',
     twitchDark: false
 }
 var mainChatPanel = '.right-column';
+var chatLine = '.chat-list__lines';
+var chatText;
 var mainHeader = '.room-selector__header';
 var rightCol;
 //generate setting items with the params given
@@ -64,6 +67,7 @@ function saveChanges() {
     var savedSettings = {};
     savedSettings.currentOpacity = settings.currentOpacity;
     savedSettings.currentAlpha = settings.currentAlpha;
+    savedSettings.currentFontSize = settings.currentFontSize;
     savedSettings.chatPosition = settings.chatPosition;
     savedSettings.chatSize = settings.chatSize;
     savedSettings.slimMode = settings.slimMode;
@@ -89,19 +93,19 @@ function loadChanges(element) {
             items.savedSettings.chatSize = {height:'', width:''};
         }
 
-        settings.currentOpacity = items.savedSettings.currentOpacity;
-        settings.currentAlpha = items.savedSettings.currentAlpha;
-        settings.chatPosition = items.savedSettings.chatPosition;
-        settings.chatSize = items.savedSettings.chatSize;
-        settings.slimMode = items.savedSettings.slimMode;
-        settings.hideSticky = items.savedSettings.hideSticky;
-        settings.dark = items.savedSettings.dark;
-     }
-
-     settings.screenWidth = window.screen.availWidth;
-     if (settings.prevScreenWidth > (settings.screenWidth + 50)){
-         items.savedSettings.chatPosition = {top: '', left: ''}
-     }
+        settings.currentOpacity = items.savedSettings.currentOpacity || 1;
+        settings.currentAlpha = items.savedSettings.currentAlpha || 1;
+        settings.currentFontSize = items.savedSettings.currentFontSize || 12;
+        settings.chatPosition = items.savedSettings.chatPosition || {top:'', left:''}};
+        settings.chatSize = items.savedSettings.chatSize || {height:'', width:''};
+        settings.slimMode = items.savedSettings.slimMode || false;
+        settings.hideSticky = items.savedSettings.hideSticky || false;
+        settings.dark = items.savedSettings.dark || false;
+        
+        settings.screenWidth = window.screen.availWidth;
+        if (settings.prevScreenWidth > (settings.screenWidth + 50)){
+            items.savedSettings.chatPosition = {top: '', left: ''}
+        }
    });
 }
 
@@ -175,7 +179,8 @@ function onExitFullscreen(element){
     });
     document.body.classList.remove('TFP_settingsOpen', 'TFP_isFullscreen', 'TFP_darkTheme', 'TFP_slimMode', 'TFP_hideSticky');
     chatContainer.removeAttr("style");
-    
+    console.log('DSADASDSA', chatText);
+    chatText.removeAttribute("style");
     if(document.body.classList.contains('tw-theme--dark')){
         rightCol.setAttribute('class',  rightColClasses)
     }
@@ -187,7 +192,6 @@ function onExitFullscreen(element){
 //move chat to overlay
 function addChat(element){
 
-        
     var playerVideo = document.querySelector('.player-video');
     playerVideo.parentNode.insertBefore(rightCol, playerVideo.nextSibling);
 
@@ -228,6 +232,7 @@ function setChatProperties(element){
 function initSettings(element){
     createSettingsItem('range', 'opacity', 25, 100);
     createSettingsItem('range', 'alpha', 0, 100);
+    createSettingsItem('range', 'fontSize', 10, 24);
     createSettingsItem('checkbox', 'darkTheme');
     createSettingsItem('checkbox', 'slimMode');
     createSettingsItem('checkbox', 'hideSticky');
@@ -240,12 +245,16 @@ function initSettings(element){
         });
     }
     var chatPane = document.querySelector(mainChatPanel);
+    chatText = document.querySelector(chatLine);
+
     // //add input handlers
     rangeOnChangeOpacity(chatPane);
     rangeOnChangeAlpha(chatPane);
+    rangeOnChangefontSize(chatText);
     onChangeDarkTheme(chatPane);
     onChangeSlimMode(chatPane);
     onChangeHideSticky(chatPane);
+    // checkDomEl(chatLine, rangeOnChangefontSize, 300);
 }
 
 function toggleSettingsClass(){
@@ -291,6 +300,16 @@ function rangeOnChangeAlpha(element){
     $(document).on('input change', '#CS_alpha', function() {
         settings.currentAlpha = this.value/100 ;
         element.style.backgroundColor = "rgba(" + settings.bgTheme + "," + settings.currentAlpha + ")", "important";
+    });
+}
+
+function rangeOnChangefontSize(element){
+    $('#CS_fontSize').val(settings.currentFontSize);
+    element.style.setProperty('font-size', settings.currentFontSize +'px', 'important');
+
+    $(document).on('input change', '#CS_fontSize', function() {
+        settings.currentFontSize = this.value;
+        element.style.setProperty('font-size', settings.currentFontSize +'px', 'important');
     });
 }
 

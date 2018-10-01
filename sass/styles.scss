@@ -10,10 +10,12 @@ $twitchColor: #623ca5;
 	background-size: 20px;
     background-position: 5px 5px; 
 	background-repeat:no-repeat;
-	opacity:0.9;
+	opacity: 0.9;	 
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAclBMVEVkPaiSeMOYfsabgsechMidhMieh8qgiMqgicuhisujjMyjjcykjs2lj82mkM6nkc6nks+ok8+plM6plM+qlc+rls+rl9Csl9CsmNGtmdGumtGumtKvm9KwndOxndP6+fz7+v39/f7+/f7+/v//swD///8rufdhAAAAuklEQVR4Ae3Vu26DQBCF4ZM7WRLCJYHY4MuynPd/RWtGK8uN2XEDDV81xfktFwhA+hcYZSMJkv4dJnkgCU8yOBgUQaZ41aJA0q/uP4EPOdgi4Z+y/5LTaTFg1kBRQpU0ahD90WSHqwMNjrhBA6wZTNEWrBNMd2zBssH2tK4eGCwbPPq672nSIepoVEM1FD1m6Z8OP3JWetZI2Ossj9/30SGp1SKD7P0bDCr9aZA8P8PkWwqQpycYuUBeADOQzjuv/emgAAAAAElFTkSuQmCC);
+	// background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAb1BMVEX///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+pUA8cAAAAJHRSTlMAAQIDBgiBgoSFhoeIiYqLjI2Oj5CRkpSVl5ibnJ2foqOlqrM0ZkjeAAAAuElEQVR4Ae3Vu7KCQBCE4V44R0EF5SLKivd+/2e0ZkrKSHZMIOGLCPoHAooFEN9p1EVQ8YUmrdM1AOdp0DiZ4qZFw6Cd7k/gWR+UM2AD2R8J0muRcFACUVMC1jAqSA24hcmafcAlDBb8BIQBpwz4NgfTBPxiDsYN5q918sBg3ODX330Kk6wPMhiVGrCASDlIX9rtJaj0smTASmctoed75BmUa9FB9vGVBpXeWrK/B00ODur/SSPvgBd8y6by3Y1bXAAAAABJRU5ErkJggg==);
 	&:hover{
-		opacity:0.7;
+		opacity: 0.7;
+		// background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAb1BMVEWpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdR9COBrAAAAJHRSTlMAAQIDBgiBgoSFhoeIiYqLjI2Oj5CRkpSVl5ibnJ2foqOlqrM0ZkjeAAAAuElEQVR4Ae3Vu7KCQBCE4V44R0EF5SLKivd+/2e0ZkrKSHZMIOGLCPoHAooFEN9p1EVQ8YUmrdM1AOdp0DiZ4qZFw6Cd7k/gWR+UM2AD2R8J0muRcFACUVMC1jAqSA24hcmafcAlDBb8BIQBpwz4NgfTBPxiDsYN5q918sBg3ODX330Kk6wPMhiVGrCASDlIX9rtJaj0smTASmctoed75BmUa9FB9vGVBpXeWrK/B00ODur/SSPvgBd8y6by3Y1bXAAAAABJRU5ErkJggg==);
 	}
 }
 .player-button.pl-mg-r-1{
@@ -75,16 +77,19 @@ body.TFP_isFullscreen{
 		margin-right:-26px;
 		padding-left: 10px;
 		overflow-y:auto;
+		box-sizing: border-box;
 	}
 	.tw-button{
 		padding: 3px 8px;
 	}
-    // .tw-button-icon--secondary{
-    //     margin-top:-170%;
-    // }
+    .chat-list__more-messages-placeholder{
+		width: 100%;
+		margin-left: 0!important;
+	}
     .chat-line__message, .chat-line__moderation, .chat-line__status{
 		padding-bottom: 8px !important;
 		padding-right: 8px !important;
+		padding-top:5px;
 	}
 
     .tw-border-l, .tw-border-b, .tw-border-r, .tw-border-t{border:none !important}
@@ -101,8 +106,9 @@ body.TFP_isFullscreen{
             border: 1px solid  rgba(#392e5c, 0.3);
             color: #dad8de
         }
-        .tw-c-text, .tw-c-text-alt{
-            color: #dad8de !important
+        .tw-c-text, .tw-c-text-alt, .chat-line__message, .simplebar-content{
+			color: #dad8de !important;
+			
         }
         .video-chat__sync-button{
             background: black;
@@ -110,10 +116,19 @@ body.TFP_isFullscreen{
         }
         .chat-line__subscribe{
         	background-color:rgba(black,0.9);
-        }
+		}
+		.tw-c-background-alt {
+			color: #dad8de !important;
+			background-color: #000!important;
+		}
+		.chat-list__lines{
+			line-height: 1.2;
+		}
+	
 	}
 }
 //END DEFAULT STYLING
+
 
 //START SETTINGS PANEL
 body.TFP_isFullscreen{
@@ -144,7 +159,7 @@ body.TFP_isFullscreen{
 		}
 	
 	    &.TFP_chatSettings{
-		    right: 90px;
+		    right: 100px;
 	    	background-position:center;
 	    	background-repeat:no-repeat;
 	    	background-size: 70%;
@@ -284,8 +299,8 @@ body.TFP_isFullscreen{
 //START SLIM MODE
 body.TFP_isFullscreen{
     &.TFP_slimMode{
-        .right-column, .video-chat{
-            .room-selector__header, .video-chat__header{
+        .right-column, .video-ar{
+            .room-selector__header, .video-ar__header{
                 height:3rem;
                 margin-top:-3rem;
                 transition: all .2s .5s;
@@ -307,7 +322,7 @@ body.TFP_isFullscreen{
                 padding-right: 0 !important;
                 padding-bottom: 0 !important;
                 transition: all .2s .5s;
-                margin-bottom:-75px;
+                margin-bottom:-85px;
             }
             .video-chat__sync-button{
                 left:0;
