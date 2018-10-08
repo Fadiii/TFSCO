@@ -180,7 +180,7 @@ function onExitFullscreen(element){
     document.body.classList.remove('TFP_settingsOpen', 'TFP_isFullscreen', 'TFP_darkTheme', 'TFP_slimMode', 'TFP_hideSticky');
     chatContainer.removeAttr("style");
     console.log('DSADASDSA', chatText);
-    chatText.removeAttribute("style");
+    chatText?chatText.removeAttribute("style"):null;
     if(document.body.classList.contains('tw-theme--dark')){
         rightCol.setAttribute('class',  rightColClasses)
     }
@@ -250,11 +250,10 @@ function initSettings(element){
     // //add input handlers
     rangeOnChangeOpacity(chatPane);
     rangeOnChangeAlpha(chatPane);
-    rangeOnChangefontSize(chatText);
+    chatText?rangeOnChangefontSize(chatText):null;
     onChangeDarkTheme(chatPane);
     onChangeSlimMode(chatPane);
     onChangeHideSticky(chatPane);
-    // checkDomEl(chatLine, rangeOnChangefontSize, 300);
 }
 
 function toggleSettingsClass(){
@@ -382,9 +381,12 @@ function switchToVOD(){
     if(currentAddress === 'videos'){
         mainChatPanel = '.video-chat';
         mainHeader = '.video-chat__header';
+        chatLine = '.video-chat__message-list-wrapper'
     } else {
         mainChatPanel = '.right-column';
         mainHeader = '.room-selector__header';
+        chatLine = '.chat-list__lines'
+
     }
 }
 //END SETTINGS

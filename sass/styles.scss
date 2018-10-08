@@ -106,9 +106,8 @@ body.TFP_isFullscreen{
             border: 1px solid  rgba(#392e5c, 0.3);
             color: #dad8de
         }
-        .tw-c-text, .tw-c-text-alt, .chat-line__message, .simplebar-content{
+        .tw-c-text, .tw-c-text-alt, .chat-line__message, .simplebar-content, .video-chat__message, .chat-message-text{
 			color: #dad8de !important;
-			
         }
         .video-chat__sync-button{
             background: black;
@@ -121,10 +120,12 @@ body.TFP_isFullscreen{
 			color: #dad8de !important;
 			background-color: #000!important;
 		}
-		.chat-list__lines{
+		.chat-list__lines, .video-chat__message-list-wrapper{
 			line-height: 1.2;
 		}
-	
+		.vod-message:hover{
+			background-color: #000!important;
+		}
 	}
 }
 //END DEFAULT STYLING
