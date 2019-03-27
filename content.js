@@ -12,7 +12,7 @@ var settings = {
 var mainChatPanel = '.right-column';
 var chatLine = '.chat-list__lines';
 var chatText;
-var mainHeader = '.room-selector__header';
+var mainHeader = '.rooms-header';
 var rightCol;
 //generate setting items with the params given
 function createSettingsItem(type, label, val1, val2){
@@ -379,12 +379,12 @@ function setHideSticky(){
 function switchToVOD(){
     var currentAddress = window.location.pathname.split('/')[1];
     if(currentAddress === 'videos'){
-        mainChatPanel = '.video-chat';
+        mainChatPanel = '.right-column';
         mainHeader = '.video-chat__header';
         chatLine = '.video-chat__message-list-wrapper'
     } else {
         mainChatPanel = '.right-column';
-        mainHeader = '.room-selector__header';
+        mainHeader = '.rooms-header';
         chatLine = '.chat-list__lines'
 
     }
