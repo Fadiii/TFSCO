@@ -95,8 +95,6 @@ function loadChanges(element) {
             elSet.chatSize = {height:'', width:''};
         }
         
-        console.log('opacity', elSet.currentOpacity);
-
         settings.currentOpacity = elSet.currentOpacity || elSet.currentOpacity === 0 ? elSet.currentOpacity : 1;
         settings.currentAlpha = elSet.currentAlpha || elSet.currentAlpha === 0 ? elSet.currentAlpha : 1;
         settings.currentFontSize = elSet.currentFontSize || 12;
@@ -417,7 +415,7 @@ function switchToVOD(){
 $(document).ready(function() {    
     //appent fullscreen btn
     createPlayerBtn();
-    console.log('READY')
+
     // store url on load
     var currentPage = window.location.href;
     switchToVOD();
