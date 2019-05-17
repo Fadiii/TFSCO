@@ -77,6 +77,7 @@ function saveChanges() {
     // savedSettings.windowWidth = settings.windowWidth;
     // Save it using the Chrome extension storage API.
     chrome.storage.sync.set({'savedSettings': savedSettings}, function() {
+        console.log('Chat Settings Saved', savedSettings)
     });
 }
 
@@ -112,8 +113,22 @@ function loadChanges(element) {
  // create the fullscreen Btn
 function createPlayerBtn(){
 	fsPlayerBtn = document.createElement('button');
-	fsPlayerBtn.classList.add('TFP-PlayerBtn', 'player-button');
-	fsPlayerBtn.addEventListener('click', clickFullscreen);
+	fsPlayerBtn.classList.add('TFP-PlayerBtn', 'player-button', 'pl-button__fullscreen--tooltip-left');
+    fsPlayerBtn.addEventListener('click', clickFullscreen);
+    fsPlayerBtn.innerHTML = '<span>' +
+                                '<span class="player-tip" data-tip="Fullscreen With Chat"></span>' +
+                                '<span>'+
+                                    '<svg xmlns="http://www.w3.org/2000/svg"	viewBox="0 0 30 30">'+
+                                        '<polygon points="8.2,8.2 13.5,8.2 13.5,6 6,6 6,13.5 8.2,13.5 "/>'+
+                                        '<polygon points="21.8,8.2 21.8,13.5 24,13.5 24,6 16.5,6 16.5,8.2 "/>'+
+                                        '<polygon points="21.8,21.9 16.5,21.9 16.5,24 24,24 24,16.6 21.8,16.6 "/>'+
+                                        '<polygon points="8.2,21.9 8.2,16.6 6,16.6 6,24 13.5,24 13.5,21.9 "/>'+
+                                        '<rect x="10.7" y="14.2" width="8.6" height="1.7"/>'+
+                                        '<rect x="10.7" y="17" width="6.3" height="1.7"/>'+
+                                        '<rect x="10.7" y="11.4" width="8.6" height="1.7"/>'+
+                                    '</svg>'+
+                                '</span>' +
+                            '</span>'
 	//append playerBtn to button list
 	checkDomEl('.player-buttons-right', appendPlayerBtn, 100);
 }
@@ -179,7 +194,6 @@ function onExitFullscreen(element){
     });
     document.body.classList.remove('TFP_settingsOpen', 'TFP_isFullscreen', 'TFP_darkTheme', 'TFP_slimMode', 'TFP_hideSticky');
     chatContainer.removeAttr("style");
-    console.log('DSADASDSA', chatText);
     chatText?chatText.removeAttribute("style"):null;
     if(document.body.classList.contains('tw-theme--dark')){
         rightCol.setAttribute('class',  rightColClasses)
@@ -197,7 +211,7 @@ function addChat(element){
 
 	// setTimeout(function(){
         document.body.classList.add('TFP_isFullscreen');
-        element.classList.remove('tw-full-height', 'tw-full-width', 'tw-c-background-alt-2');
+        element.classList.remove('tw-full-height', 'tw-full-width', 'tw-c-background-alt-2', 'tw-top-0');
 		var chatContainer = $(element);
 		chatContainer.draggable({ 
 			disabled:false,
@@ -290,6 +304,7 @@ function rangeOnChangeOpacity(element){
         settings.currentOpacity = this.value/100;
         element.style.opacity = settings.currentOpacity;
     });
+    saveChanges();
 }
 
 function rangeOnChangeAlpha(element){
@@ -300,6 +315,7 @@ function rangeOnChangeAlpha(element){
         settings.currentAlpha = this.value/100 ;
         element.style.backgroundColor = "rgba(" + settings.bgTheme + "," + settings.currentAlpha + ")", "important";
     });
+    saveChanges();
 }
 
 function rangeOnChangefontSize(element){
@@ -310,6 +326,7 @@ function rangeOnChangefontSize(element){
         settings.currentFontSize = this.value;
         element.style.setProperty('font-size', settings.currentFontSize +'px', 'important');
     });
+    saveChanges();
 }
 
 function onChangeDarkTheme(element){
@@ -354,6 +371,7 @@ function setDarkTheme(element){
         settings.bgTheme = '250, 250, 250';
         element.style.backgroundColor = "rgba(" + settings.bgTheme + "," + settings.currentAlpha + ")", "important";
     }
+    saveChanges();
 }
 
 function setSlimMode(){
@@ -364,6 +382,7 @@ function setSlimMode(){
         settings.slimMode = false;
         document.body.classList.remove('TFP_slimMode');
     }
+    saveChanges();
 }
 
 function setHideSticky(){
@@ -374,6 +393,7 @@ function setHideSticky(){
         document.body.classList.remove('TFP_hideSticky');
         settings.hideSticky = false;
     }
+    saveChanges();
 }
 
 function switchToVOD(){
