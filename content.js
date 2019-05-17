@@ -9,6 +9,7 @@ var settings = {
     currentFontSize: '12',
     twitchDark: false
 }
+var savedSettings = {};
 var mainChatPanel = '.right-column';
 var chatLine = '.chat-list__lines';
 var chatText;
@@ -64,7 +65,7 @@ function checkDomEl(el, action, time){
 function saveChanges() {
     settings.screenWidth = window.screen.availWidth;
     // Check that there's some code there.
-    var savedSettings = {};
+
     savedSettings.currentOpacity = settings.currentOpacity;
     savedSettings.currentAlpha = settings.currentAlpha;
     savedSettings.currentFontSize = settings.currentFontSize;
@@ -76,36 +77,38 @@ function saveChanges() {
     savedSettings.screenWidth = settings.screenWidth;
     // savedSettings.windowWidth = settings.windowWidth;
     // Save it using the Chrome extension storage API.
-    chrome.storage.sync.set({'savedSettings': savedSettings}, function() {
-        console.log('Chat Settings Saved', savedSettings)
-    });
+    chrome.storage.local.set({'savedSettings': savedSettings});
 }
 
 function loadChanges(element) {
     var chatContainer = element;
     
     // Load it using the Chrome extension storage API.
-   chrome.storage.sync.get('savedSettings', function(items) {
+   chrome.storage.local.get('savedSettings', function(items) {
      if (!chrome.runtime.error) {
 
-         // if saved window size is bigger then the available one, reset position and size
-        if (items.savedSettings.screenWidth > (window.screen.availWidth + 50)){
-            items.savedSettings.chatPosition = {top:'', left:''};
-            items.savedSettings.chatSize = {height:'', width:''};
-        }
+        var elSet = items.savedSettings;
 
-        settings.currentOpacity = items.savedSettings.currentOpacity || 1;
-        settings.currentAlpha = items.savedSettings.currentAlpha || 1;
-        settings.currentFontSize = items.savedSettings.currentFontSize || 12;
-        settings.chatPosition = items.savedSettings.chatPosition || {top:'', left:''}};
-        settings.chatSize = items.savedSettings.chatSize || {height:'', width:''};
-        settings.slimMode = items.savedSettings.slimMode || false;
-        settings.hideSticky = items.savedSettings.hideSticky || false;
-        settings.dark = items.savedSettings.dark || false;
+         // if saved window size is bigger then the available one, reset position and size
+        if (elSet.screenWidth > (window.screen.availWidth + 50)){
+            elSet.chatPosition = {top:'', left:''};
+            elSet.chatSize = {height:'', width:''};
+        }
+        
+        console.log('opacity', elSet.currentOpacity);
+
+        settings.currentOpacity = elSet.currentOpacity || elSet.currentOpacity === 0 ? elSet.currentOpacity : 1;
+        settings.currentAlpha = elSet.currentAlpha || elSet.currentAlpha === 0 ? elSet.currentAlpha : 1;
+        settings.currentFontSize = elSet.currentFontSize || 12;
+        settings.chatPosition = elSet.chatPosition || {top:'', left:''}};
+        settings.chatSize = elSet.chatSize || {height:'', width:''};
+        settings.slimMode = elSet.slimMode || false;
+        settings.hideSticky = elSet.hideSticky || false;
+        settings.dark = elSet.dark || false;
         
         settings.screenWidth = window.screen.availWidth;
         if (settings.prevScreenWidth > (settings.screenWidth + 50)){
-            items.savedSettings.chatPosition = {top: '', left: ''}
+            elSet.chatPosition = {top: '', left: ''}
         }
    });
 }
@@ -264,7 +267,7 @@ function initSettings(element){
     // //add input handlers
     rangeOnChangeOpacity(chatPane);
     rangeOnChangeAlpha(chatPane);
-    chatText?rangeOnChangefontSize(chatText):null;
+    chatText ? rangeOnChangefontSize(chatText) : null;
     onChangeDarkTheme(chatPane);
     onChangeSlimMode(chatPane);
     onChangeHideSticky(chatPane);
@@ -303,8 +306,8 @@ function rangeOnChangeOpacity(element){
     $(document).on('input change', '#CS_opacity', function() {
         settings.currentOpacity = this.value/100;
         element.style.opacity = settings.currentOpacity;
+        saveChanges();
     });
-    saveChanges();
 }
 
 function rangeOnChangeAlpha(element){
@@ -314,8 +317,8 @@ function rangeOnChangeAlpha(element){
     $(document).on('input change', '#CS_alpha', function() {
         settings.currentAlpha = this.value/100 ;
         element.style.backgroundColor = "rgba(" + settings.bgTheme + "," + settings.currentAlpha + ")", "important";
+        saveChanges();
     });
-    saveChanges();
 }
 
 function rangeOnChangefontSize(element){
@@ -325,8 +328,8 @@ function rangeOnChangefontSize(element){
     $(document).on('input change', '#CS_fontSize', function() {
         settings.currentFontSize = this.value;
         element.style.setProperty('font-size', settings.currentFontSize +'px', 'important');
+        saveChanges();
     });
-    saveChanges();
 }
 
 function onChangeDarkTheme(element){
@@ -429,4 +432,8 @@ $(document).ready(function() {
             }
         }
     }, 500);
+
+    chrome.storage.onChanged.addListener(function(obj){
+        console.log('obj on change', obj)
+    })
 });
