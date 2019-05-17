@@ -7,16 +7,7 @@ $twitchColor: #623ca5;
 // START PLAYER BUTTON
 .player-button.TFP-PlayerBtn{
 	margin-right:1rem;
-	background-size: 20px;
-    background-position: 5px 5px; 
-	background-repeat:no-repeat;
 	opacity: 0.9;	 
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAclBMVEVkPaiSeMOYfsabgsechMidhMieh8qgiMqgicuhisujjMyjjcykjs2lj82mkM6nkc6nks+ok8+plM6plM+qlc+rls+rl9Csl9CsmNGtmdGumtGumtKvm9KwndOxndP6+fz7+v39/f7+/f7+/v//swD///8rufdhAAAAuklEQVR4Ae3Vu26DQBCF4ZM7WRLCJYHY4MuynPd/RWtGK8uN2XEDDV81xfktFwhA+hcYZSMJkv4dJnkgCU8yOBgUQaZ41aJA0q/uP4EPOdgi4Z+y/5LTaTFg1kBRQpU0ahD90WSHqwMNjrhBA6wZTNEWrBNMd2zBssH2tK4eGCwbPPq672nSIepoVEM1FD1m6Z8OP3JWetZI2Ossj9/30SGp1SKD7P0bDCr9aZA8P8PkWwqQpycYuUBeADOQzjuv/emgAAAAAElFTkSuQmCC);
-	// background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAb1BMVEX///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+pUA8cAAAAJHRSTlMAAQIDBgiBgoSFhoeIiYqLjI2Oj5CRkpSVl5ibnJ2foqOlqrM0ZkjeAAAAuElEQVR4Ae3Vu7KCQBCE4V44R0EF5SLKivd+/2e0ZkrKSHZMIOGLCPoHAooFEN9p1EVQ8YUmrdM1AOdp0DiZ4qZFw6Cd7k/gWR+UM2AD2R8J0muRcFACUVMC1jAqSA24hcmafcAlDBb8BIQBpwz4NgfTBPxiDsYN5q918sBg3ODX330Kk6wPMhiVGrCASDlIX9rtJaj0smTASmctoed75BmUa9FB9vGVBpXeWrK/B00ODur/SSPvgBd8y6by3Y1bXAAAAABJRU5ErkJggg==);
-	&:hover{
-		opacity: 0.7;
-		// background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAb1BMVEWpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdSpkdR9COBrAAAAJHRSTlMAAQIDBgiBgoSFhoeIiYqLjI2Oj5CRkpSVl5ibnJ2foqOlqrM0ZkjeAAAAuElEQVR4Ae3Vu7KCQBCE4V44R0EF5SLKivd+/2e0ZkrKSHZMIOGLCPoHAooFEN9p1EVQ8YUmrdM1AOdp0DiZ4qZFw6Cd7k/gWR+UM2AD2R8J0muRcFACUVMC1jAqSA24hcmafcAlDBb8BIQBpwz4NgfTBPxiDsYN5q918sBg3ODX330Kk6wPMhiVGrCASDlIX9rtJaj0smTASmctoed75BmUa9FB9vGVBpXeWrK/B00ODur/SSPvgBd8y6by3Y1bXAAAAABJRU5ErkJggg==);
-	}
 }
 .player-button.pl-mg-r-1{
 	margin-right:0 !important;
@@ -322,7 +313,7 @@ body.TFP_isFullscreen{
 body.TFP_isFullscreen{
     &.TFP_slimMode{
         .right-column, .video-ar{
-            .room-selector__header, .video-ar__header, .rooms-header{
+            .room-selector__header, .video-ar__header, .rooms-header, .video-chat__header{
                 height:3rem;
                 margin-top:-3rem;
                 transition: all .2s .5s;
