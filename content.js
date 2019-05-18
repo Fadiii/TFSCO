@@ -48,7 +48,7 @@ function checkDomEl(el, action, time){
                     action(element);
 				} else {
                     retries += 1;
-                    console.log('element', el, 'does not exist');
+                    console.log('element', el, 'is not ready');
                     if(retries >= maxRetries){
                         clearInterval(interval);
                         console.log('Somthing is wrong');
@@ -167,7 +167,7 @@ function clickFullscreen(){
             checkDomEl(mainChatPanel, addChat, 300); 
             if(document.body.classList.contains('TFP_isFullscreen')){
                 videoFSBtn.click();
-            }
+            } 
         } else if(!(window.innerHeight === screen.height)) {
             videoFSBtn.click();
             setTimeout(function(){
@@ -177,16 +177,10 @@ function clickFullscreen(){
                 checkDomEl(mainChatPanel, addChat, 300);  
             },1000);
         }
-  
 }
 
 function onExitFullscreen(element){
     var chatContainer = $(element);
-
-    settings.chatPosition = {top: element.style.top, left: element.style.left}
-    settings.chatSize = {width: element.style.width, height: element.style.height}
-
-    saveChanges();
 	chatContainer.draggable({
 		disabled:true
     });
@@ -217,12 +211,22 @@ function addChat(element){
 		chatContainer.draggable({ 
 			disabled:false,
 			handle: mainHeader,
-			containment: "document"
+            containment: "document"
         });
         
         chatContainer.resizable({
             disabled:false,
             containment: "document"
+        });
+
+        chatContainer.on('resizestop', function(){
+            settings.chatSize = {width: element.style.width, height: element.style.height}
+            saveChanges()
+        });
+
+        chatContainer.on('dragstop', function(){
+            settings.chatPosition = {top: element.style.top, left: element.style.left}
+            saveChanges()
         });
 
         loadChanges(element);
@@ -432,6 +436,6 @@ $(document).ready(function() {
     }, 500);
 
     chrome.storage.onChanged.addListener(function(obj){
-        console.log('obj on change', obj)
+        console.log('Saved Twitch fullscreen settings', obj)
     })
 });
