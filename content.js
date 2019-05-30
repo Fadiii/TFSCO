@@ -326,6 +326,8 @@ function rangeOnChangeAlpha(element){
 function rangeOnChangefontSize(element){
     $('#CS_fontSize').val(settings.currentFontSize);
     element.style.setProperty('font-size', settings.currentFontSize +'px', 'important');
+    // Add stroke
+    element.style.cssText = 'color: white; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
 
     $(document).on('input change', '#CS_fontSize', function() {
         settings.currentFontSize = this.value;
